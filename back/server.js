@@ -11,67 +11,28 @@ const laureatesRoutes = require('./routes/laureates');
 
 app.use('/api/laureates', laureatesRoutes);
 
-// stats endpoints będą tutaj 
 
-
-
-const { getDB } = require('./db');
-
-app.get('/api/stats/categories', async (req, res) => {
+const { getDB } = require('../db');
+router.get('/', async (req, res) => {
+  const { category, year, country, search } = req.query;
+  const filter = {}
+  if (category) filter['prizes.category'] = category;
+  if (country) filter['bornCountry'] = new RegExp(country, 'i');
+  if (search) filter['$or'] = [
+    { firstname: new RegExp(search, 'i') },
+    { surname: new RegExp(search, 'i') }
+  ];
   const db = getDB();
-
-  const result = await db.collection('laureates').aggregate([
-    { $unwind: "$nobelPrizes" },
-    {
-      $group: {
-        _id: "$nobelPrizes.category.en",
-        count: { $sum: 1 }
-      }
-    },
-    { $sort: { count: -1 } }
-  ]).toArray();
-
-  res.json(result);
-});
-
-app.get('/api/stats/countries', async (req, res) => {
-  const db = getDB();
-
-  const result = await db.collection('laureates').aggregate([
-    {
-      $group: {
-        _id: "$birth.place.country.en",
-        count: { $sum: 1 }
-      }
-    },
-    { $sort: { count: -1 } },
-    { $limit: 10 }
-  ]).toArray();
-
-  res.json(result);
-});
-
-app.get('/api/stats/years', async (req, res) => {
-  const db = getDB();
-
-  const result = await db.collection('laureates').aggregate([
-    { $unwind: "$nobelPrizes" },
-    {
-      $group: {
-        _id: "$nobelPrizes.awardYear",
-        count: { $sum: 1 }
-      }
-    },
-    { $sort: { _id: 1 } }
-  ]).toArray();
-
-  res.json(result);
+  const laureates = await db
+    .collection('laureates')
+    .find(filter).toArray();
+  res.json(laureates);
 });
 
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`🚀 Server działa na porcie ${PORT}`);
+    console.log(`Server działa na porcie ${PORT}`);
   });
 });
