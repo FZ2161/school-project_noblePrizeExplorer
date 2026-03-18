@@ -7,10 +7,15 @@ async function connectDB() {
 
     const client = new MongoClient(process.env.MONGO_URI);
     await client.connect();
+
     db = client.db('nobel');
     console.log('✅ Połączono z MongoDB Atlas');
     return db;
 }
 
-function getDB() { return db; }
+function getDB() {
+  if (!db) throw new Error('DB not initialized');
+  return db;
+}
+
 module.exports = { connectDB, getDB };
