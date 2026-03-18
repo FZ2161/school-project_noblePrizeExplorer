@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-const { connectDB } = require('./db');
+const { connectDB } = require('./db.js');
+
+const router = express.Router();
 
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
@@ -12,7 +15,9 @@ const laureatesRoutes = require('./routes/laureates');
 app.use('/api/laureates', laureatesRoutes);
 
 
-const { getDB } = require('../db');
+const { getDB } = require('./db');
+
+
 router.get('/', async (req, res) => {
   const { category, year, country, search } = req.query;
   const filter = {}
@@ -29,10 +34,12 @@ router.get('/', async (req, res) => {
   res.json(laureates);
 });
 
+app.use('/api', router);
+
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`Server działa na porcie ${PORT}`);
+    console.log(`działa na porcie ${PORT}`);
   });
 });

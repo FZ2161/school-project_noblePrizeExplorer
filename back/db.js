@@ -14,7 +14,7 @@ async function connectDB() {
 }
 
 function getDB() {
-  if (!db) throw new Error('DB not initialized');
+  if (!db) throw new Error('errr: DB not initialized');
   return db;
 }
 

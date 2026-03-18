@@ -7,22 +7,18 @@ router.get('/', async (req, res) => {
 
   const filter = {};
 
-  // category
   if (category) {
     filter["nobelPrizes.category.en"] = new RegExp(category, 'i');
   }
 
-  // year
   if (year) {
     filter["nobelPrizes.awardYear"] = year;
   }
 
-  // country
   if (country) {
     filter["birth.place.country.en"] = new RegExp(country, 'i');
   }
 
-  // search (imię + nazwisko)
   if (search) {
     filter["$or"] = [
       { "givenName.en": new RegExp(search, 'i') },
