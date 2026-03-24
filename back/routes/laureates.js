@@ -49,12 +49,12 @@ router.get('/:id', async (req, res) => {
       .findOne({ _id: new ObjectId(req.params.id) });
 
     if (!laureate) {
-      return res.status(404).json({ error: 'Not found' });
+      return res.status(404).json({ error: 'Not found.' });
     }
 
     res.json(laureate);
   } catch (err) {
-    res.status(400).json({ error: 'Invalid ID' });
+    res.status(400).json({ error: 'Invalid ID.' });
   }
 });
 

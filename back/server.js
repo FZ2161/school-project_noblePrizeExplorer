@@ -10,12 +10,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const laureatesRoutes = require('./routes/laureates');
+app.use('/api', router);
+app.use('/api/stats', router)
 
+const laureatesRoutes = require('./routes/laureates');
 app.use('/api/laureates', laureatesRoutes);
+
+const statsRoutes = require('./routes/stats')
+app.use('/api/stats', statsRoutes)
 
 
 const { getDB } = require('./db');
+
+app.get("/", (req, res) => {
+  res.redirect('/api')
+})
 
 
 router.get('/', async (req, res) => {
@@ -34,7 +43,7 @@ router.get('/', async (req, res) => {
   res.json(laureates);
 });
 
-app.use('/api', router);
+
 
 const PORT = process.env.PORT || 5000;
 
