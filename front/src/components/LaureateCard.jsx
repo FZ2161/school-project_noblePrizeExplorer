@@ -1,37 +1,39 @@
-import { Card, CardContent, Typography } from '@mui/material';
+﻿import { Card, CardContent, Typography, CardActionArea } from '@mui/material';
 
-export default function LaureateCard({ laureate }) {
-  const name = `${laureate.givenName?.en || ''} ${laureate.familyName?.en || ''}`;
-
+export default function LaureateCard({ laureate, onClick }) {
+  const name = `${laureate.givenName?.en || ''} ${laureate.familyName?.en || ''}`.trim();
   const prize = laureate.nobelPrizes?.[0];
-
-  const country = laureate.birth?.place?.country?.en || 'Unknown';
-
+  const country = laureate.birth?.place?.country?.en || 'No data available';
   const countryCode = country.toLowerCase().slice(0, 2);
 
   return (
     <Card sx={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: 240 }}>
-      <CardContent >
-        <div>
-          <Typography variant="h5" gutterBottom >
-            {name}
-          </Typography>
-          <Typography color="text.secondary">{prize?.category?.en}</Typography>
-          <Typography color="text.secondary" sx={{ mb: 1 }}>
-            {prize?.awardYear}
-          </Typography>
-        </div>
+      <CardActionArea
+        onClick={onClick}
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', height: '100%' }}
+      >
+        <CardContent sx={{ flexGrow: 1 }}>
+          <div>
+            <Typography variant="h5" gutterBottom>
+              {name}
+            </Typography>
+            <Typography color="text.secondary">{prize?.category?.en || 'No data available'}</Typography>
+            <Typography color="text.secondary" sx={{ mb: 1 }}>
+              {prize?.awardYear || 'No data available'}
+            </Typography>
+          </div>
 
-        <img
-          src={`https://flagcdn.com/w40/${countryCode}.png`}
-          alt={country}
-          style={{ width: '40px', height: 'auto', marginBottom: '1rem' }}
-        />
+          <img
+            src={`https://flagcdn.com/w40/${countryCode}.png`}
+            alt={country}
+            style={{ width: '40px', height: 'auto', marginBottom: '1rem' }}
+          />
 
-        <Typography variant="body2" color="text.secondary">
-          {prize?.motivation?.en}
-        </Typography>
-      </CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {prize?.motivation?.en || 'No data available'}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }

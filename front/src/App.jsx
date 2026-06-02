@@ -11,9 +11,9 @@ export default function App() {
     <>
       <AppBar position="static" sx={{ backgroundColor: '#0d47a1', color: '#fff' }}>
         <Tabs value={tab} onChange={(e, v) => setTab(v)}>
-          <Tab label="Lista" />
-          <Tab label="Mapa" />
-          <Tab label="Statystyki" />
+          <Tab label="Laureates" />
+          <Tab label="Map" />
+          <Tab label="Statistics" />
         </Tabs>
       </AppBar>
 

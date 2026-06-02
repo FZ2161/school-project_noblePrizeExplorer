@@ -1,4 +1,4 @@
-import { TextField, Select, MenuItem, Box } from '@mui/material';
+﻿import { TextField, Select, MenuItem, Box } from '@mui/material';
 
 export default function FilterPanel({ filters, setFilters }) {
   return (
@@ -7,9 +7,9 @@ export default function FilterPanel({ filters, setFilters }) {
         value={filters.category}
         onChange={(e) => setFilters({ ...filters, category: e.target.value })}
         displayEmpty
-        sx={{ minWidth: 140, width: { xs: '100%', sm: 'auto' } }}
+        sx={{ minWidth: 180, width: { xs: '100%', sm: 'auto' } }}
       >
-        <MenuItem value="">All</MenuItem>
+        <MenuItem value="">All Categories</MenuItem>
         <MenuItem value="physics">Physics</MenuItem>
         <MenuItem value="chemistry">Chemistry</MenuItem>
         <MenuItem value="medicine">Medicine</MenuItem>
@@ -17,8 +17,6 @@ export default function FilterPanel({ filters, setFilters }) {
         <MenuItem value="peace">Peace</MenuItem>
         <MenuItem value="economics">Economics</MenuItem>
       </Select>
-
-      
 
       <TextField
         label="Search"

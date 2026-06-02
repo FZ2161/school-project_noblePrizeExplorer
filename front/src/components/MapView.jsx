@@ -161,20 +161,20 @@ export default function MapView() {
                   </div>
                 </div>
                 <div style={{ marginBottom: '8px' }}>
-                  <strong>Liczba laureatów:</strong> {country.count}
+                  <strong>Number of Laureates:</strong> {country.count}
                 </div>
                 <div style={{ marginBottom: '8px' }}>
-                  <strong>Najczęstsza kategoria:</strong> {country.topCategory}
+                  <strong>Most Frequent Category:</strong> {country.topCategory}
                 </div>
                 <div>
-                  <strong>Laureaci:</strong>
+                  <strong>Laureates:</strong>
                   <ul style={{ margin: '6px 0 0', paddingLeft: '18px', maxHeight: '120px', overflowY: 'auto' }}>
                     {country.laureates.slice(0, 8).map((name, index) => (
-                      <li key={index} style={{ marginBottom: '2px' }}>• {name}</li>
+                      <li key={index} style={{ marginBottom: '2px' }}>{name}</li>
                     ))}
                     {country.laureates.length > 8 ? (
                       <li style={{ fontStyle: 'italic', color: '#555' }}>
-                        + {country.laureates.length - 8} więcej
+                        + {country.laureates.length - 8} more
                       </li>
                     ) : null}
                   </ul>
