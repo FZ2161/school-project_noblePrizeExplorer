@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
 });
 
 
-// GET by ID
+//po ids
 router.get('/:id', async (req, res) => {
   const { ObjectId } = require('mongodb');
   const db = getDB();

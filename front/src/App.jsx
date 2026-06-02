@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { AppBar, Tabs, Tab, Container } from '@mui/material';
+import LaureateList from './components/LaureateList';
+import MapView from './components/MapView';
+import StatsChart from './components/StatsChart';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [tab, setTab] = useState(0);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <AppBar position="static" sx={{ backgroundColor: '#0d47a1', color: '#fff' }}>
+        <Tabs value={tab} onChange={(e, v) => setTab(v)}>
+          <Tab label="Lista" />
+          <Tab label="Mapa" />
+          <Tab label="Statystyki" />
+        </Tabs>
+      </AppBar>
 
-export default App
+      <Container
+        maxWidth="lg"
+        sx={{
+          mt: 4,
+          backgroundColor: '#ffffff',
+          color: '#111111',
+          borderRadius: 3,
+          p: 3,
+          boxShadow: '0 15px 35px rgba(0, 0, 0, 0.08)',
+          width: '100%',
+        }}
+      >
+        {tab === 0 && <LaureateList />}
+        {tab === 1 && <MapView />}
+        {tab === 2 && <StatsChart />}
+      </Container>
+    </>
+  );
+}
