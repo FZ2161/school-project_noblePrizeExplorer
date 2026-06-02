@@ -2,7 +2,7 @@
 
 export default function FilterPanel({ filters, setFilters }) {
   return (
-    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, mb: 3, width: '100%' }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 3, width: '100%' }}>
       <Select
         value={filters.category}
         onChange={(e) => setFilters({ ...filters, category: e.target.value })}
@@ -22,7 +22,7 @@ export default function FilterPanel({ filters, setFilters }) {
         label="Search"
         value={filters.search}
         onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-        sx={{ width: '100%' }}
+        sx={{ flexGrow: 1, minWidth: 220 }}
       />
     </Box>
   );

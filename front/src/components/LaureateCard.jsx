@@ -3,8 +3,8 @@
 export default function LaureateCard({ laureate, onClick }) {
   const name = `${laureate.givenName?.en || ''} ${laureate.familyName?.en || ''}`.trim();
   const prize = laureate.nobelPrizes?.[0];
-  const country = laureate.birth?.place?.country?.en || 'No data available';
-  const countryCode = country.toLowerCase().slice(0, 2);
+  const countryLabel = laureate.birth?.place?.country?.en || 'No data available';
+  const countryCode = laureate.bornCountryCode || (laureate.birth?.place?.country?.en ? countryLabel.toLowerCase().slice(0, 2) : '');
 
   return (
     <Card sx={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: 240 }}>
@@ -23,11 +23,13 @@ export default function LaureateCard({ laureate, onClick }) {
             </Typography>
           </div>
 
-          <img
-            src={`https://flagcdn.com/w40/${countryCode}.png`}
-            alt={country}
-            style={{ width: '40px', height: 'auto', marginBottom: '1rem' }}
-          />
+          {countryCode ? (
+            <img
+              src={`https://flagcdn.com/w40/${countryCode}.png`}
+              alt={countryLabel}
+              style={{ width: '40px', height: 'auto', marginBottom: '1rem' }}
+            />
+          ) : null}
 
           <Typography variant="body2" color="text.secondary">
             {prize?.motivation?.en || 'No data available'}
